@@ -614,6 +614,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 2143006524}
+  - 114: {fileID: 2143006526}
+  - 114: {fileID: 2143006525}
   m_Layer: 5
   m_Name: DeviceStatus
   m_TagString: Untagged
@@ -641,3 +643,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &2143006525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143006523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a64c85f31e6410eba1079f3c8cb3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batteryLevel: {fileID: 1895265192}
+  memoryUsage: {fileID: 355535013}
+--- !u!114 &2143006526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143006523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1819478eb196548099607e2c2521cb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
