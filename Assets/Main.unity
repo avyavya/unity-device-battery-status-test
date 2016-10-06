@@ -614,8 +614,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 2143006524}
-  - 114: {fileID: 2143006526}
   - 114: {fileID: 2143006525}
+  - 114: {fileID: 2143006526}
   m_Layer: 5
   m_Name: DeviceStatus
   m_TagString: Untagged
@@ -664,6 +664,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143006523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1819478eb196548099607e2c2521cb4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e48f98e2c9804b1b846727ef6702875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
