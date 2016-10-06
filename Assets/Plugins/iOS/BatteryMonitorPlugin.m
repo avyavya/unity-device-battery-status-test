@@ -13,3 +13,30 @@ float getBatteryLevel() {
     
     return batteryLevel;
 }
+
+int getBatteryStatus() {
+    int state;
+        
+    switch ([UIDevice currentDevice].batteryState)
+    {
+        case UIDeviceBatteryStateFull:
+            state = 2;
+            break;
+            
+        case UIDeviceBatteryStateCharging:
+            state = 1;
+            break;
+            
+        case UIDeviceBatteryStateUnplugged:
+            state = 0;
+            break;
+            
+        default:
+        case UIDeviceBatteryStateUnknown:
+            state = -1;
+            break;
+    }
+    
+    return state;
+}
+

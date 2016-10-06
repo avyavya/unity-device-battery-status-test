@@ -23,14 +23,12 @@ namespace DeviceStatus.Devices
 			return -1f;
 		}
 
-		public float GetBatteryLevel()
+		public BatteryStatus GetBatteryStatus()
 		{
-			return -1f;
-		}
-
-		public bool IsBatteryStateCharging()
-		{
-			return false;
+			return new BatteryStatus
+			{
+				Level = -1f
+			};
 		}
 
 	}

@@ -4,9 +4,9 @@
 namespace DeviceStatus.Devices
 {
 	
-	public class AndroidDeviceStatus
+	public class AndroidDeviceStatus : IDeviceStatus
 	{
-		
+
 		public AndroidDeviceStatus()
 		{
 		}
@@ -26,52 +26,49 @@ namespace DeviceStatus.Devices
 		}
 
 		/// http://answers.unity3d.com/questions/369110/how-to-get-current-battery-life-on-mobile-device.html
-		public float GetBatteryLevel()
+		public BatteryStatus GetBatteryStatus()
 		{
-			var lv = -1f;
+			var s = new BatteryStatus
+			{
+				Level = -1f
+			};
 
-			if (Application.platform != RuntimePlatform.Android) return lv;
+			if (Application.platform != RuntimePlatform.Android) return s;
 
 			try
 			{
 				using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
 				{
-					if (unityPlayer == null) return lv;
+					if (unityPlayer == null) return s;
 
 					using (var currActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
 					{
-						if (currActivity == null) return lv;
+						if (currActivity == null) return s;
 
 						using (var intentFilter = new AndroidJavaObject("android.content.IntentFilter", new object[] { "android.intent.action.BATTERY_CHANGED" }))
 						{
 							using (var batteryIntent = currActivity.Call<AndroidJavaObject>("registerReceiver", new object[] { null, intentFilter }))
 							{
-								int level = batteryIntent.Call<int>("getIntExtra", new object[] { "level", -1 });
-								int scale = batteryIntent.Call<int>("getIntExtra", new object[] { "scale", -1 });
+								var level = batteryIntent.Call<int>("getIntExtra", new object[] { "level", -1 });
+								var scale = batteryIntent.Call<int>("getIntExtra", new object[] { "scale", -1 });
+								var status = batteryIntent.Call<int>("getIntExtra", new object[] { "status", -1 });
 
-								// Error checking that probably isn't needed but I added just in case.
-								if (level < 0 || scale < 0)
-								{
-									return lv;
-								}
-								lv = (float)level / (float)scale;
+								s.IsCharging = status == 2; // 充電中:2, Unplug:3
+								s.Status = status;
+
+								s.Level = (float) level / (float) scale;
 							}
-
 						}
 					}
 				}
 			}
 			catch (System.Exception e)
 			{
-
 			}
 
-			return lv;
+			return s;
 		}
 
-		public bool IsBatteryStateCharging()
-		{
-			return false;
-		}
 	}
+
 }

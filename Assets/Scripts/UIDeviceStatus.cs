@@ -9,6 +9,8 @@ public class UIDeviceStatus : MonoBehaviour
     
     [SerializeField] private Text batteryLevel;
 
+	[SerializeField] private Text batteryStatus;	
+
     [SerializeField] private Text memoryUsage;
 
     private DeviceStatusComponent status;
@@ -38,9 +40,11 @@ public class UIDeviceStatus : MonoBehaviour
 
     private void UpdateBatteryLevel()
     {
-        var lv = status.GetBatteryLevel() * 100f;
+		var s = status.GetBatteryStatus();
+		var p = s.Level * 100f;
 
-        batteryLevel.text = lv.ToString("F0") + " %";
+		batteryLevel.text = p.ToString("F0") + " %";
+		batteryStatus.text = s.Status.ToString();
     }
 
 }

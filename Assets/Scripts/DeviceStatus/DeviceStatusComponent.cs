@@ -4,7 +4,7 @@ using DeviceStatus.Devices;
 
 namespace DeviceStatus
 {
-	
+
 	public class DeviceStatusComponent : MonoBehaviour
 	{
 
@@ -40,14 +40,9 @@ namespace DeviceStatus
 			return device.GetMemoryUsage();
 		}
 
-		public float GetBatteryLevel()
+		public BatteryStatus GetBatteryStatus()
 		{
-			return device.GetBatteryLevel();
-		}
-
-		public bool IsBatteryStateCharging()
-		{
-			return device.IsBatteryStateCharging();
+			return device.GetBatteryStatus();
 		}
 
 	}

@@ -22,6 +22,8 @@ namespace DeviceStatus.Devices
 	    private static extern float disableBatteryMonitoring();
 	    [DllImport("__Internal")]
 	    private static extern float getBatteryLevel();
+		[DllImport("__Internal")]
+		private static extern int getBatteryStatus();
 
 
 		public void OnEnable()
@@ -42,14 +44,16 @@ namespace DeviceStatus.Devices
 			return m;
 		}
 
-		public float GetBatteryLevel()
+		public BatteryStatus GetBatteryStatus()
 		{
-			return getBatteryLevel();
-		}
+			var s = getBatteryStatus();
 
-		public bool IsBatteryStateCharging()
-		{
-			return false;
+			return new BatteryStatus
+			{
+				Level = getBatteryLevel(),
+				Status = s,
+				IsCharging = s == 1, // 充電中:1, see: BatteryMonitorPlugin.m 
+			};
 		}
 
 	}
