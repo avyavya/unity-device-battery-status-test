@@ -4,58 +4,53 @@ using System.Runtime.InteropServices;
 
 namespace DeviceStatus.Devices
 {
-	
-	public class IOSDeviceStatus : IDeviceStatus
-	{
 
-		public IOSDeviceStatus()
-		{
-		}
+    public class IOSDeviceStatus : IDeviceStatus
+    {
 
-		/// Native Plugins
-	    [DllImport("__Internal")]
-	    private static extern uint getUsedMemorySize();
+        /// Native Plugins
+        [DllImport("__Internal")]
+        private static extern uint getUsedMemorySize();
 
-	    [DllImport("__Internal")]
-	    private static extern float enableBatteryMonitoring();
-	    [DllImport("__Internal")]
-	    private static extern float disableBatteryMonitoring();
-	    [DllImport("__Internal")]
-	    private static extern float getBatteryLevel();
-		[DllImport("__Internal")]
-		private static extern int getBatteryStatus();
+        [DllImport("__Internal")]
+        private static extern float enableBatteryMonitoring();
+        [DllImport("__Internal")]
+        private static extern float disableBatteryMonitoring();
+        [DllImport("__Internal")]
+        private static extern float getBatteryLevel();
+        [DllImport("__Internal")]
+        private static extern int getBatteryState();
 
 
-		public void OnEnable()
-		{
-	        enableBatteryMonitoring();
-		}
+        public void OnEnable()
+        {
+            enableBatteryMonitoring();
+        }
 
-		public void OnDisable()
-		{
-	        disableBatteryMonitoring();
-		}
+        public void OnDisable()
+        {
+            disableBatteryMonitoring();
+        }
 
 
-		public float GetMemoryUsage()
-		{
-			var m = getUsedMemorySize();
+        public float GetMemoryUsage()
+        {
+            var m = getUsedMemorySize();
 
-			return m;
-		}
+            return m;
+        }
 
-		public BatteryStatus GetBatteryStatus()
-		{
-			var s = getBatteryStatus();
+        public BatteryStatus GetBatteryStatus()
+        {
+            var state = getBatteryState();
 
-			return new BatteryStatus
-			{
-				Level = getBatteryLevel(),
-				Status = s,
-				IsCharging = s == 1, // 充電中:1, see: BatteryMonitorPlugin.m 
-			};
-		}
+            return new BatteryStatus
+            {
+                Level = getBatteryLevel(),
+                IsCharging = state == 1, // 充電中:1, see: BatteryMonitorPlugin.m
+            };
+        }
 
-	}
+    }
 
 }

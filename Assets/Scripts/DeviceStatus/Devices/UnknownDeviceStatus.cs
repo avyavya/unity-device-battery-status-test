@@ -2,7 +2,7 @@
 namespace DeviceStatus.Devices
 {
 
-    public class UnityEditorDeviceStatus : IDeviceStatus
+    public class UnknownDeviceStatus : IDeviceStatus
     {
 
         public void OnEnable()
@@ -16,9 +16,7 @@ namespace DeviceStatus.Devices
 
         public float GetMemoryUsage()
         {
-            var m = System.GC.GetTotalMemory(false);
-
-            return m;
+            return -1f;
         }
 
         public BatteryStatus GetBatteryStatus()

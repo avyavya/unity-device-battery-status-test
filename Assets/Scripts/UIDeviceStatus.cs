@@ -44,7 +44,6 @@ public class UIDeviceStatus : MonoBehaviour
 		var p = s.Level * 100f;
 
 		batteryLevel.text = p.ToString("F0") + " %";
-		batteryStatus.text = s.Status.ToString();
     }
 
 }
