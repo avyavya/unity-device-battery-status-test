@@ -2,11 +2,19 @@
 using System.Runtime.InteropServices;
 
 
+// Android で il2cpp がコンパイルエラーを吐くので
+// iOS 以外のビルド以外はコンパイル対象から外す
+// * DllImport のメソッドがエラーになる
+#if UNITY_IOS
 namespace DeviceStatus.Devices
 {
 
     public class IOSDeviceStatus : IDeviceStatus
     {
+
+        public IOSDeviceStatus()
+        {
+        }
 
         /// Native Plugins
         [DllImport("__Internal")]
@@ -19,7 +27,7 @@ namespace DeviceStatus.Devices
         [DllImport("__Internal")]
         private static extern float getBatteryLevel();
         [DllImport("__Internal")]
-        private static extern int getBatteryState();
+        private static extern int getBatteryStatus();
 
 
         public void OnEnable()
@@ -42,15 +50,17 @@ namespace DeviceStatus.Devices
 
         public BatteryStatus GetBatteryStatus()
         {
-            var state = getBatteryState();
+            var s = getBatteryStatus();
 
             return new BatteryStatus
             {
                 Level = getBatteryLevel(),
-                IsCharging = state == 1, // 充電中:1, see: BatteryMonitorPlugin.m
+                Status = s,
+                IsCharging = s == 1, // 充電中:1, see: BatteryMonitorPlugin.m
             };
         }
 
     }
 
 }
+#endif

@@ -24,7 +24,7 @@ namespace DeviceStatus
                 #elif UNITY_ANDROID
                 device = new AndroidDeviceStatus();
                 #else
-                device = new UndefinedDeviceStatus();
+                device = new UnknownDeviceStatus();
                 #endif
 
                 IsDeviceReady = true;
