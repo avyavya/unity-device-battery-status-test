@@ -1,9 +1,14 @@
 ﻿
+#if UNITY_EDITOR
 namespace DeviceStatus.Devices
 {
 
     public class UnityEditorDeviceStatus : IDeviceStatus
     {
+
+        public UnityEditorDeviceStatus()
+        {
+        }
 
         public void OnEnable()
         {
@@ -21,6 +26,11 @@ namespace DeviceStatus.Devices
             return m;
         }
 
+        public float GetBatteryLevel()
+        {
+            return -1f;
+        }
+
         public BatteryStatus GetBatteryStatus()
         {
             return new BatteryStatus
@@ -32,3 +42,4 @@ namespace DeviceStatus.Devices
     }
 
 }
+#endif

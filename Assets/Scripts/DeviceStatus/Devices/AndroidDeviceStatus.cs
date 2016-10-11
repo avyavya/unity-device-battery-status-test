@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 
 
+// UNITY_ANDROID の時だけコンパイル
+#if UNITY_ANDROID
 namespace DeviceStatus.Devices
 {
 
     public class AndroidDeviceStatus : IDeviceStatus
     {
+
+        public AndroidDeviceStatus()
+        {
+        }
 
         public void OnEnable()
         {
@@ -50,6 +56,7 @@ namespace DeviceStatus.Devices
                                 var status = batteryIntent.Call<int>("getIntExtra", new object[] { "status", -1 });
 
                                 s.IsCharging = status == 2; // 充電中:2, Unplug:3
+                                s.Status = status;
 
                                 s.Level = (float) level / (float) scale;
                             }
@@ -67,3 +74,4 @@ namespace DeviceStatus.Devices
     }
 
 }
+#endif
